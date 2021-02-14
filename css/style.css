@@ -1,5 +1,5 @@
 body {
-  background-color: lavender;
+  background-color: grey;
 }
 
 h1 {
@@ -10,15 +10,36 @@ h1 {
 h3 {
   font-size: 1.5em;
   text-align: center;
-};
+}
 
 section {
-  background-color: rgb(18, 19, 19);
+  background-color: cadetblue;
   width: max-content;
   margin: auto;
-};
+}
 
 section img {
   width: 300px;
+  height: 300px;
   margin: 50px;
+}
+
+img:hover {
+  cursor: pointer;
+}
+
+div {
+  padding: 5px;
+  width: max-content;
+  height: 30px;
+  background-color: cadetblue;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  border-radius: 50px;
+}
+
+div:hover {
+  cursor: pointer;
 }
