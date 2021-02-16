@@ -4,7 +4,7 @@ console.log('Hello World');
 
 //Global Variables
 let totalClicks = 0;
-let clicksAllowed = 5;
+let clicksAllowed = 25;
 let allProducts = [];
 let ProductsToDisplay = [];
 
@@ -103,7 +103,6 @@ function handleClick(event) {
   renderProducts();
   if (totalClicks === clicksAllowed) {
     myContainer.removeEventListener('click', handleClick);
-    // renderResults();
   }
 }
 
@@ -117,4 +116,3 @@ renderProducts();
 
 myContainer.addEventListener('click', handleClick);
 myButton.addEventListener('click', handleButtonClick);
-
