@@ -6,10 +6,11 @@ console.log('Hello World');
 let totalClicks = 0;
 let clicksAllowed = 5;
 let allProducts = [];
+let ProductsToDisplay = [];
 
 
-let myContainer = document.getElementById('container');
-let myButton = document.getElementById('button');
+let myContainer = document.querySelector('section');
+let myButton = document.querySelector('div');
 let imageOneElement = document.querySelector('section img:first-child');
 let imageTwoElement = document.querySelector('section img:nth-child(2)');
 let imageThreeElement = document.querySelector('section img:nth-child(3)');
@@ -48,7 +49,6 @@ function getRandomIndex() {
 }
 
 function renderProducts() {
-  let ProductsToDisplay = [];
 
   while (ProductsToDisplay.length < 3) {
     let indexArray = getRandomIndex(allProducts.length);
@@ -58,7 +58,7 @@ function renderProducts() {
     ProductsToDisplay.push(indexArray);
   }
 
-  console.log(ProductsToDisplay);
+  // console.log(ProductsToDisplay);
 
   let ProductsOneIndex = ProductsToDisplay.shift();
   let ProductsTwoIndex = ProductsToDisplay.shift();
@@ -67,17 +67,14 @@ function renderProducts() {
   // console.log(ProductsOneElement);
 
   imageOneElement.src = allProducts[ProductsOneIndex].src;
-  imageOneElement.alt = allProducts[ProductsOneIndex].name;
   imageOneElement.title = allProducts[ProductsOneIndex].name;
   allProducts[ProductsOneIndex].views++;
 
   imageTwoElement.src = allProducts[ProductsTwoIndex].src;
-  imageTwoElement.alt = allProducts[ProductsTwoIndex].name;
   imageTwoElement.title = allProducts[ProductsTwoIndex].name;
   allProducts[ProductsTwoIndex].views++;
 
   imageThreeElement.src = allProducts[ProductsThreeIndex].src;
-  imageThreeElement.alt = allProducts[ProductsThreeIndex].name;
   imageThreeElement.title = allProducts[ProductsThreeIndex].name;
   allProducts[ProductsThreeIndex].views++;
 }
@@ -106,13 +103,14 @@ function handleClick(event) {
   renderProducts();
   if (totalClicks === clicksAllowed) {
     myContainer.removeEventListener('click', handleClick);
-    renderResults();
+    // renderResults();
   }
 }
 
 function handleButtonClick(event) {
-  if (totalClicks === clicksAllowed)
+  if (totalClicks === clicksAllowed) {
     renderResults();
+  }
 }
 
 renderProducts();
