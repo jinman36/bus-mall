@@ -5,15 +5,19 @@ console.log('Hello World');
 //Global Variables
 let totalClicks = 0;
 let clicksAllowed = 25;
+let imageCount = 12;
 let allProducts = [];
-let ProductsToDisplay = [];
 
-
+let ctx = document.getElementById('myChart').getContext('2d');
 let myContainer = document.querySelector('section');
-let myButton = document.querySelector('div');
+// let myButton = document.querySelector('div');
 let imageOneElement = document.querySelector('section img:first-child');
 let imageTwoElement = document.querySelector('section img:nth-child(2)');
 let imageThreeElement = document.querySelector('section img:nth-child(3)');
+let imageFourElement = document.querySelector('section img:nth-child(4)');
+let imageFiveElement = document.querySelector('section img:nth-child(5)');
+let imageSixElement = document.querySelector('section img:nth-child(6)');
+
 
 function Products(name, fileExt = 'jpg') {
   this.name = name;
@@ -47,22 +51,27 @@ new Products('wine-glass');
 function getRandomIndex() {
   return Math.floor(Math.random() * allProducts.length);
 }
+let ProductsToDisplay = [];
 
 function renderProducts() {
 
-  while (ProductsToDisplay.length < 3) {
-    let indexArray = getRandomIndex(allProducts.length);
-    while (ProductsToDisplay.includes(indexArray)) {
-      indexArray = getRandomIndex(allProducts.length);
+  while (ProductsToDisplay.length < imageCount) {
+    let indexArray = getRandomIndex();
+    while (!ProductsToDisplay.includes(indexArray)) {
+      // indexArray = getRandomIndex(allProducts.length);
+      ProductsToDisplay.unshift(indexArray);
     }
-    ProductsToDisplay.push(indexArray);
   }
 
   // console.log(ProductsToDisplay);
 
-  let ProductsOneIndex = ProductsToDisplay.shift();
-  let ProductsTwoIndex = ProductsToDisplay.shift();
-  let ProductsThreeIndex = ProductsToDisplay.shift();
+  let ProductsOneIndex = ProductsToDisplay.pop();
+  let ProductsTwoIndex = ProductsToDisplay.pop();
+  let ProductsThreeIndex = ProductsToDisplay.pop();
+  let ProductsFourIndex = ProductsToDisplay.pop();
+  let ProductsFiveIndex = ProductsToDisplay.pop();
+  let ProductsSixIndex = ProductsToDisplay.pop();
+
 
   // console.log(ProductsOneElement);
 
@@ -77,16 +86,29 @@ function renderProducts() {
   imageThreeElement.src = allProducts[ProductsThreeIndex].src;
   imageThreeElement.title = allProducts[ProductsThreeIndex].name;
   allProducts[ProductsThreeIndex].views++;
+
+  imageFourElement.src = allProducts[ProductsFourIndex].src;
+  imageFourElement.title = allProducts[ProductsFourIndex].name;
+  allProducts[ProductsFourIndex].views++;
+
+  imageFiveElement.src = allProducts[ProductsFiveIndex].src;
+  imageFiveElement.title = allProducts[ProductsFiveIndex].name;
+  allProducts[ProductsFiveIndex].views++;
+
+  imageSixElement.src = allProducts[ProductsSixIndex].src;
+  imageSixElement.title = allProducts[ProductsSixIndex].name;
+  allProducts[ProductsSixIndex].views++;
+
 }
 
-function renderResults() {
-  let myList = document.querySelector('ul');
-  for (let i = 0; i < allProducts.length; i++) {
-    let li = document.createElement('li');
-    li.textContent = `${allProducts[i].name} had ${allProducts[i].clicks} votes, and was seen ${allProducts[i].views} times.`;
-    myList.appendChild(li);
-  }
-}
+// function renderResults() {
+//   let myList = document.querySelector('ul');
+//   for (let i = 0; i < allProducts.length; i++) {
+//     let li = document.createElement('li');
+//     li.textContent = `${allProducts[i].name} had ${allProducts[i].clicks} votes, and was seen ${allProducts[i].views} times.`;
+//     myList.appendChild(li);
+//   }
+// }
 
 function handleClick(event) {
   if (event.target === myContainer) {
@@ -103,16 +125,57 @@ function handleClick(event) {
   renderProducts();
   if (totalClicks === clicksAllowed) {
     myContainer.removeEventListener('click', handleClick);
+    renderChart();
   }
 }
 
-function handleButtonClick(event) {
-  if (totalClicks === clicksAllowed) {
-    renderResults();
-  }
-}
+// function handleButtonClick(event) {
+//   if (totalClicks === clicksAllowed) {
+// renderResults();
+//   }
+// }
 
 renderProducts();
 
+function renderChart() {
+  let productNames = [];
+  let productViews = [];
+  let productClicks = [];
+  for (let i = 0; i < allProducts.length; i++) {
+    productNames.push(allProducts[i].name);
+    productViews.push(allProducts[i].views);
+    productClicks.push(allProducts[i].clicks);
+  }
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: productNames,
+      datasets: [{
+        label: 'Votes',
+        data: productClicks,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 3
+      },
+      {
+        label: 'Views',
+        data: productViews,
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 3
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+};
+
 myContainer.addEventListener('click', handleClick);
-myButton.addEventListener('click', handleButtonClick);
+// myButton.addEventListener('click', handleButtonClick);
