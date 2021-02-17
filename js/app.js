@@ -4,16 +4,20 @@ console.log('Hello World');
 
 //Global Variables
 let totalClicks = 0;
-let clicksAllowed = 25;
+let clicksAllowed = 10;
+let imageCount = 12;
 let allProducts = [];
-let ProductsToDisplay = [];
 
 
 let myContainer = document.querySelector('section');
-let myButton = document.querySelector('div');
+// let myButton = document.querySelector('div');
 let imageOneElement = document.querySelector('section img:first-child');
 let imageTwoElement = document.querySelector('section img:nth-child(2)');
 let imageThreeElement = document.querySelector('section img:nth-child(3)');
+let imageFourElement = document.querySelector('section img:nth-child(4)');
+let imageFiveElement = document.querySelector('section img:nth-child(5)');
+let imageSixElement = document.querySelector('section img:nth-child(6)');
+
 
 function Products(name, fileExt = 'jpg') {
   this.name = name;
@@ -47,22 +51,27 @@ new Products('wine-glass');
 function getRandomIndex() {
   return Math.floor(Math.random() * allProducts.length);
 }
+let ProductsToDisplay = [];
 
 function renderProducts() {
 
-  while (ProductsToDisplay.length < 3) {
-    let indexArray = getRandomIndex(allProducts.length);
-    while (ProductsToDisplay.includes(indexArray)) {
-      indexArray = getRandomIndex(allProducts.length);
+  while (ProductsToDisplay.length < imageCount) {
+    let indexArray = getRandomIndex();
+    while (!ProductsToDisplay.includes(indexArray)) {
+      // indexArray = getRandomIndex(allProducts.length);
+      ProductsToDisplay.unshift(indexArray);
     }
-    ProductsToDisplay.push(indexArray);
   }
 
   // console.log(ProductsToDisplay);
 
-  let ProductsOneIndex = ProductsToDisplay.shift();
-  let ProductsTwoIndex = ProductsToDisplay.shift();
-  let ProductsThreeIndex = ProductsToDisplay.shift();
+  let ProductsOneIndex = ProductsToDisplay.pop();
+  let ProductsTwoIndex = ProductsToDisplay.pop();
+  let ProductsThreeIndex = ProductsToDisplay.pop();
+  let ProductsFourIndex = ProductsToDisplay.pop();
+  let ProductsFiveIndex = ProductsToDisplay.pop();
+  let ProductsSixIndex = ProductsToDisplay.pop();
+
 
   // console.log(ProductsOneElement);
 
@@ -77,6 +86,19 @@ function renderProducts() {
   imageThreeElement.src = allProducts[ProductsThreeIndex].src;
   imageThreeElement.title = allProducts[ProductsThreeIndex].name;
   allProducts[ProductsThreeIndex].views++;
+
+  imageFourElement.src = allProducts[ProductsFourIndex].src;
+  imageFourElement.title = allProducts[ProductsFourIndex].name;
+  allProducts[ProductsFourIndex].views++;
+
+  imageFiveElement.src = allProducts[ProductsFiveIndex].src;
+  imageFiveElement.title = allProducts[ProductsFiveIndex].name;
+  allProducts[ProductsFiveIndex].views++;
+
+  imageSixElement.src = allProducts[ProductsSixIndex].src;
+  imageSixElement.title = allProducts[ProductsSixIndex].name;
+  allProducts[ProductsSixIndex].views++;
+
 }
 
 function renderResults() {
@@ -106,13 +128,13 @@ function handleClick(event) {
   }
 }
 
-function handleButtonClick(event) {
-  if (totalClicks === clicksAllowed) {
-    renderResults();
-  }
-}
+// function handleButtonClick(event) {
+//   if (totalClicks === clicksAllowed) {
+// renderResults();
+//   }
+// }
 
 renderProducts();
 
 myContainer.addEventListener('click', handleClick);
-myButton.addEventListener('click', handleButtonClick);
+// myButton.addEventListener('click', handleButtonClick);
