@@ -4,11 +4,11 @@ console.log('Hello World');
 
 //Global Variables
 let totalClicks = 0;
-let clicksAllowed = 10;
+let clicksAllowed = 25;
 let imageCount = 12;
 let allProducts = [];
 
-
+let ctx = document.getElementById('myChart').getContext('2d');
 let myContainer = document.querySelector('section');
 // let myButton = document.querySelector('div');
 let imageOneElement = document.querySelector('section img:first-child');
@@ -101,14 +101,14 @@ function renderProducts() {
 
 }
 
-function renderResults() {
-  let myList = document.querySelector('ul');
-  for (let i = 0; i < allProducts.length; i++) {
-    let li = document.createElement('li');
-    li.textContent = `${allProducts[i].name} had ${allProducts[i].clicks} votes, and was seen ${allProducts[i].views} times.`;
-    myList.appendChild(li);
-  }
-}
+// function renderResults() {
+//   let myList = document.querySelector('ul');
+//   for (let i = 0; i < allProducts.length; i++) {
+//     let li = document.createElement('li');
+//     li.textContent = `${allProducts[i].name} had ${allProducts[i].clicks} votes, and was seen ${allProducts[i].views} times.`;
+//     myList.appendChild(li);
+//   }
+// }
 
 function handleClick(event) {
   if (event.target === myContainer) {
@@ -125,6 +125,7 @@ function handleClick(event) {
   renderProducts();
   if (totalClicks === clicksAllowed) {
     myContainer.removeEventListener('click', handleClick);
+    renderChart();
   }
 }
 
@@ -135,6 +136,46 @@ function handleClick(event) {
 // }
 
 renderProducts();
+
+function renderChart() {
+  let productNames = [];
+  let productViews = [];
+  let productClicks = [];
+  for (let i = 0; i < allProducts.length; i++) {
+    productNames.push(allProducts[i].name);
+    productViews.push(allProducts[i].views);
+    productClicks.push(allProducts[i].clicks);
+  }
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: productNames,
+      datasets: [{
+        label: 'Votes',
+        data: productClicks,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 3
+      },
+      {
+        label: 'Views',
+        data: productViews,
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 3
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+};
 
 myContainer.addEventListener('click', handleClick);
 // myButton.addEventListener('click', handleButtonClick);
