@@ -33,8 +33,6 @@ img:hover {
 
 div {
   padding: 5px;
-  width: max-content;
-  height: 30px;
   background-color: cadetblue;
   margin: auto;
   margin-top: 20px;
@@ -48,10 +46,16 @@ div:hover {
   cursor: pointer;
 }
 
-ul {
+/* ul {
   border-style: double;
   background-color: cadetblue;
   width: max-content;
-  margin: auto;
+  margin: auto; */
+}
 
+#chart {
+  height: 200px;
+  width: 400px;
+  display: inline-block;
+  color: black
 }
