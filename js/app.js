@@ -4,19 +4,21 @@ console.log('Hello World');
 
 //Global Variables
 let totalClicks = 0;
-let clicksAllowed = 25;
-let imageCount = 12;
+let clicksAllowed = 5;
+let imageCount = 6;
 let allProducts = [];
 
-let ctx = document.getElementById('myChart').getContext('2d');
+
+let countries = document.getElementById("pieChart").getContext("2d");
+let ctx = document.getElementById('barChart').getContext('2d');
 let myContainer = document.querySelector('section');
-// let myButton = document.querySelector('div');
+let myButton = document.querySelector('div');
 let imageOneElement = document.querySelector('section img:first-child');
 let imageTwoElement = document.querySelector('section img:nth-child(2)');
 let imageThreeElement = document.querySelector('section img:nth-child(3)');
-let imageFourElement = document.querySelector('section img:nth-child(4)');
-let imageFiveElement = document.querySelector('section img:nth-child(5)');
-let imageSixElement = document.querySelector('section img:nth-child(6)');
+// let imageFourElement = document.querySelector('section img:nth-child(4)');
+// let imageFiveElement = document.querySelector('section img:nth-child(5)');
+// let imageSixElement = document.querySelector('section img:nth-child(6)');
 
 
 function Products(name, fileExt = 'jpg') {
@@ -54,7 +56,6 @@ function getRandomIndex() {
 let ProductsToDisplay = [];
 
 function renderProducts() {
-
   while (ProductsToDisplay.length < imageCount) {
     let indexArray = getRandomIndex();
     while (!ProductsToDisplay.includes(indexArray)) {
@@ -68,9 +69,9 @@ function renderProducts() {
   let ProductsOneIndex = ProductsToDisplay.pop();
   let ProductsTwoIndex = ProductsToDisplay.pop();
   let ProductsThreeIndex = ProductsToDisplay.pop();
-  let ProductsFourIndex = ProductsToDisplay.pop();
-  let ProductsFiveIndex = ProductsToDisplay.pop();
-  let ProductsSixIndex = ProductsToDisplay.pop();
+  // let ProductsFourIndex = ProductsToDisplay.pop();
+  // let ProductsFiveIndex = ProductsToDisplay.pop();
+  // let ProductsSixIndex = ProductsToDisplay.pop();
 
 
   // console.log(ProductsOneElement);
@@ -87,17 +88,17 @@ function renderProducts() {
   imageThreeElement.title = allProducts[ProductsThreeIndex].name;
   allProducts[ProductsThreeIndex].views++;
 
-  imageFourElement.src = allProducts[ProductsFourIndex].src;
-  imageFourElement.title = allProducts[ProductsFourIndex].name;
-  allProducts[ProductsFourIndex].views++;
+  //   imageFourElement.src = allProducts[ProductsFourIndex].src;
+  //   imageFourElement.title = allProducts[ProductsFourIndex].name;
+  //   allProducts[ProductsFourIndex].views++;
 
-  imageFiveElement.src = allProducts[ProductsFiveIndex].src;
-  imageFiveElement.title = allProducts[ProductsFiveIndex].name;
-  allProducts[ProductsFiveIndex].views++;
+  //   imageFiveElement.src = allProducts[ProductsFiveIndex].src;
+  //   imageFiveElement.title = allProducts[ProductsFiveIndex].name;
+  //   allProducts[ProductsFiveIndex].views++;
 
-  imageSixElement.src = allProducts[ProductsSixIndex].src;
-  imageSixElement.title = allProducts[ProductsSixIndex].name;
-  allProducts[ProductsSixIndex].views++;
+  //   imageSixElement.src = allProducts[ProductsSixIndex].src;
+  //   imageSixElement.title = allProducts[ProductsSixIndex].name;
+  //   allProducts[ProductsSixIndex].views++;
 
 }
 
@@ -129,11 +130,12 @@ function handleClick(event) {
   }
 }
 
-// function handleButtonClick(event) {
-//   if (totalClicks === clicksAllowed) {
-// renderResults();
-//   }
-// }
+function handleButtonClick(event) {
+  if (totalClicks === clicksAllowed) {
+    renderPieChart();
+
+  }
+}
 
 renderProducts();
 
@@ -175,7 +177,36 @@ function renderChart() {
       }
     }
   });
-};
+}
+
+function renderPieChart() {
+  let productNames = [];
+  let productViews = [];
+  let productClicks = [];
+  for (let i = 0; i < allProducts.length; i++) {
+    productNames.push(allProducts[i].name);
+    productViews.push(allProducts[i].views);
+    productClicks.push(allProducts[i].clicks);
+  }
+
+  var myPieChart = new Chart(pieChart, {
+    type: 'pie',
+    data: {
+      labels: productNames,
+      datasets: [{
+        label: "Pie Chart Results",
+        backgroundColor: ["cadetblue", "black", "grey", "rgba(54, 162, 235, 0.2)", "#c45850", "green", "#8e5ea2", "#3cba9f", "rgba(75, 192, 192, 1)", "bisque", "#3e95cd", "rgba(54, 162, 235, 1)", "navyblue", "#e8c3b9", "rgba(75, 192, 192, 0.2)", "#3e95cd", "black", "#3cba9f", "#e8c3b9", "#c45850"],
+        data: productClicks
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'See results in a pie chart!'
+      }
+    }
+  });
+}
 
 myContainer.addEventListener('click', handleClick);
-// myButton.addEventListener('click', handleButtonClick);
+myButton.addEventListener('click', handleButtonClick);
