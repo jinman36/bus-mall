@@ -4,7 +4,7 @@ console.log('Hello World');
 
 //Global Variables
 let totalClicks = 0;
-let clicksAllowed = 5;
+let clicksAllowed = 25;
 let imageCount = 6;
 let allProducts = [];
 
@@ -53,25 +53,25 @@ new Products('wine-glass');
 function getRandomIndex() {
   return Math.floor(Math.random() * allProducts.length);
 }
-let ProductsToDisplay = [];
+let productsToDisplay = [];
 
 function renderProducts() {
-  while (ProductsToDisplay.length < imageCount) {
+  while (productsToDisplay.length < imageCount) {
     let indexArray = getRandomIndex();
-    while (!ProductsToDisplay.includes(indexArray)) {
+    while (!productsToDisplay.includes(indexArray)) {
       // indexArray = getRandomIndex(allProducts.length);
-      ProductsToDisplay.unshift(indexArray);
+      productsToDisplay.unshift(indexArray);
     }
   }
 
-  // console.log(ProductsToDisplay);
+  // console.log(productsToDisplay);
 
-  let ProductsOneIndex = ProductsToDisplay.pop();
-  let ProductsTwoIndex = ProductsToDisplay.pop();
-  let ProductsThreeIndex = ProductsToDisplay.pop();
-  // let ProductsFourIndex = ProductsToDisplay.pop();
-  // let ProductsFiveIndex = ProductsToDisplay.pop();
-  // let ProductsSixIndex = ProductsToDisplay.pop();
+  let ProductsOneIndex = productsToDisplay.pop();
+  let ProductsTwoIndex = productsToDisplay.pop();
+  let ProductsThreeIndex = productsToDisplay.pop();
+  // let ProductsFourIndex = productsToDisplay.pop();
+  // let ProductsFiveIndex = productsToDisplay.pop();
+  // let ProductsSixIndex = productsToDisplay.pop();
 
 
   // console.log(ProductsOneElement);
