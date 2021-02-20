@@ -9,7 +9,7 @@ let imageCount = 6;
 let allProducts = [];
 
 
-let countries = document.getElementById("pieChart").getContext("2d");
+let countries = document.getElementById("pieChart").getContext("3d");
 let ctx = document.getElementById('barChart').getContext('2d');
 let myContainer = document.querySelector('section');
 let myButton = document.querySelector('div');
@@ -55,6 +55,11 @@ function getRandomIndex() {
 }
 let productsToDisplay = [];
 
+function imgAssignment(imageElement, imageIndex)
+imageElement.src = allProducts[imageIndex].src;
+imageElement.title = allProducts[imageIndex].name;
+allProducts[imageIndexx].views++;
+
 function renderProducts() {
   while (productsToDisplay.length < imageCount) {
     let indexArray = getRandomIndex();
@@ -76,17 +81,23 @@ function renderProducts() {
 
   // console.log(ProductsOneElement);
 
-  imageOneElement.src = allProducts[ProductsOneIndex].src;
-  imageOneElement.title = allProducts[ProductsOneIndex].name;
-  allProducts[ProductsOneIndex].views++;
 
-  imageTwoElement.src = allProducts[ProductsTwoIndex].src;
-  imageTwoElement.title = allProducts[ProductsTwoIndex].name;
-  allProducts[ProductsTwoIndex].views++;
+imgAssignment(ProductsOneElement, imageOneElement);
+imgAssignment(ProductsTwoElement, imageTwoElement);
+imgAssignment(ProductsThreeElement, imageThreeElement);
 
-  imageThreeElement.src = allProducts[ProductsThreeIndex].src;
-  imageThreeElement.title = allProducts[ProductsThreeIndex].name;
-  allProducts[ProductsThreeIndex].views++;
+
+  // imageOneElement.src = allProducts[ProductsOneIndex].src;
+  // imageOneElement.title = allProducts[ProductsOneIndex].name;
+  // allProducts[ProductsOneIndex].views++;
+
+  // imageTwoElement.src = allProducts[ProductsTwoIndex].src;
+  // imageTwoElement.title = allProducts[ProductsTwoIndex].name;
+  // allProducts[ProductsTwoIndex].views++;
+
+  // imageThreeElement.src = allProducts[ProductsThreeIndex].src;
+  // imageThreeElement.title = allProducts[ProductsThreeIndex].name;
+  // allProducts[ProductsThreeIndex].views++;
 
   //   imageFourElement.src = allProducts[ProductsFourIndex].src;
   //   imageFourElement.title = allProducts[ProductsFourIndex].name;
