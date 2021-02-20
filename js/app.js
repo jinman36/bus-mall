@@ -9,7 +9,7 @@ let imageCount = 6;
 let allProducts = [];
 
 
-let countries = document.getElementById("pieChart").getContext("2d");
+let pieChart = document.getElementById('pieChart').getContext('2d');
 let ctx = document.getElementById('barChart').getContext('2d');
 let myContainer = document.querySelector('section');
 let myButton = document.querySelector('div');
@@ -194,8 +194,8 @@ function renderPieChart() {
     data: {
       labels: productNames,
       datasets: [{
-        label: "Pie Chart Results",
-        backgroundColor: ["cadetblue", "black", "grey", "rgba(54, 162, 235, 0.2)", "#c45850", "green", "#8e5ea2", "#3cba9f", "rgba(75, 192, 192, 1)", "bisque", "#3e95cd", "rgba(54, 162, 235, 1)", "navyblue", "#e8c3b9", "rgba(75, 192, 192, 0.2)", "#3e95cd", "black", "#3cba9f", "#e8c3b9", "#c45850"],
+        label: 'Pie Chart Results',
+        backgroundColor: ['cadetblue', 'black', 'grey', 'rgba(54, 162, 235, 0.2)', '#c45850', 'green', '#8e5ea2', '#3cba9f', 'rgba(75, 192, 192, 1)', 'bisque', '#3e95cd', 'rgba(54, 162, 235, 1)', 'navyblue', '#e8c3b9', 'rgba(75, 192, 192, 0.2)', '#3e95cd', 'black', '#3cba9f', '#e8c3b9', '#c45850'],
         data: productClicks
       }]
     },
