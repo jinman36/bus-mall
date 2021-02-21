@@ -9,11 +9,7 @@ let imageCount = 6;
 let allProducts = [];
 
 
-<<<<<<< HEAD
 let pieChart = document.getElementById('pieChart').getContext('2d');
-=======
-let countries = document.getElementById("pieChart").getContext("3d");
->>>>>>> b2007176aa1397c0e2a3371c5cef0d36f1124327
 let ctx = document.getElementById('barChart').getContext('2d');
 let myContainer = document.querySelector('section');
 let myButton = document.querySelector('div');
@@ -33,36 +29,43 @@ function Products(name, fileExt = 'jpg') {
   allProducts.push(this);
 }
 
-new Products('sweep', 'png');
-new Products('bag');
-new Products('banana');
-new Products('bathroom');
-new Products('boots');
-new Products('breakfast');
-new Products('bubblegum');
-new Products('chair');
-new Products('cthulhu');
-new Products('dog-duck');
-new Products('dragon');
-new Products('pen');
-new Products('pet-sweep');
-new Products('scissors');
-new Products('shark');
-new Products('tauntaun');
-new Products('unicorn');
-new Products('usb', 'gif');
-new Products('water-can');
-new Products('wine-glass');
+let retrieveProducts = localStorage.getItem('products');
+
+if (retrieveProducts) {
+  let parsedProducts = JSON.parse(retrieveProducts);
+  allProducts = parsedProducts;
+} else {
+  new Products('sweep', 'png');
+  new Products('bag');
+  new Products('banana');
+  new Products('bathroom');
+  new Products('boots');
+  new Products('breakfast');
+  new Products('bubblegum');
+  new Products('chair');
+  new Products('cthulhu');
+  new Products('dog-duck');
+  new Products('dragon');
+  new Products('pen');
+  new Products('pet-sweep');
+  new Products('scissors');
+  new Products('shark');
+  new Products('tauntaun');
+  new Products('unicorn');
+  new Products('usb', 'gif');
+  new Products('water-can');
+  new Products('wine-glass');
+}
 
 function getRandomIndex() {
   return Math.floor(Math.random() * allProducts.length);
 }
 let productsToDisplay = [];
 
-function imgAssignment(imageElement, imageIndex)
-imageElement.src = allProducts[imageIndex].src;
-imageElement.title = allProducts[imageIndex].name;
-allProducts[imageIndexx].views++;
+// function imgAssignment(imageElement, imageIndex)
+// imageElement.src = allProducts[imageIndex].src;
+// imageElement.title = allProducts[imageIndex].name;
+// allProducts[imageIndexx].views++;
 
 function renderProducts() {
   while (productsToDisplay.length < imageCount) {
@@ -86,22 +89,22 @@ function renderProducts() {
   // console.log(ProductsOneElement);
 
 
-imgAssignment(ProductsOneElement, imageOneElement);
-imgAssignment(ProductsTwoElement, imageTwoElement);
-imgAssignment(ProductsThreeElement, imageThreeElement);
+  // imgAssignment(ProductsOneElement, imageOneElement);
+  // imgAssignment(ProductsTwoElement, imageTwoElement);
+  // imgAssignment(ProductsThreeElement, imageThreeElement);
 
 
-  // imageOneElement.src = allProducts[ProductsOneIndex].src;
-  // imageOneElement.title = allProducts[ProductsOneIndex].name;
-  // allProducts[ProductsOneIndex].views++;
+  imageOneElement.src = allProducts[ProductsOneIndex].src;
+  imageOneElement.title = allProducts[ProductsOneIndex].name;
+  allProducts[ProductsOneIndex].views++;
 
-  // imageTwoElement.src = allProducts[ProductsTwoIndex].src;
-  // imageTwoElement.title = allProducts[ProductsTwoIndex].name;
-  // allProducts[ProductsTwoIndex].views++;
+  imageTwoElement.src = allProducts[ProductsTwoIndex].src;
+  imageTwoElement.title = allProducts[ProductsTwoIndex].name;
+  allProducts[ProductsTwoIndex].views++;
 
-  // imageThreeElement.src = allProducts[ProductsThreeIndex].src;
-  // imageThreeElement.title = allProducts[ProductsThreeIndex].name;
-  // allProducts[ProductsThreeIndex].views++;
+  imageThreeElement.src = allProducts[ProductsThreeIndex].src;
+  imageThreeElement.title = allProducts[ProductsThreeIndex].name;
+  allProducts[ProductsThreeIndex].views++;
 
   //   imageFourElement.src = allProducts[ProductsFourIndex].src;
   //   imageFourElement.title = allProducts[ProductsFourIndex].name;
@@ -141,9 +144,13 @@ function handleClick(event) {
   renderProducts();
   if (totalClicks === clicksAllowed) {
     myContainer.removeEventListener('click', handleClick);
+    let stringifiedProducts = JSON.stringify(allProducts);
+    localStorage.setItem('products', stringifiedProducts);
     renderChart();
   }
 }
+
+
 
 function handleButtonClick(event) {
   if (totalClicks === clicksAllowed) {
