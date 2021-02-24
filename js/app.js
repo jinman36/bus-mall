@@ -16,9 +16,7 @@ let myButton = document.querySelector('div');
 let imageOneElement = document.querySelector('section img:first-child');
 let imageTwoElement = document.querySelector('section img:nth-child(2)');
 let imageThreeElement = document.querySelector('section img:nth-child(3)');
-// let imageFourElement = document.querySelector('section img:nth-child(4)');
-// let imageFiveElement = document.querySelector('section img:nth-child(5)');
-// let imageSixElement = document.querySelector('section img:nth-child(6)');
+
 
 
 function Products(name, fileExt = 'jpg') {
@@ -81,9 +79,7 @@ function renderProducts() {
   let ProductsOneIndex = productsToDisplay.pop();
   let ProductsTwoIndex = productsToDisplay.pop();
   let ProductsThreeIndex = productsToDisplay.pop();
-  // let ProductsFourIndex = productsToDisplay.pop();
-  // let ProductsFiveIndex = productsToDisplay.pop();
-  // let ProductsSixIndex = productsToDisplay.pop();
+
 
 
   // console.log(ProductsOneElement);
@@ -105,19 +101,6 @@ function renderProducts() {
   imageThreeElement.src = allProducts[ProductsThreeIndex].src;
   imageThreeElement.title = allProducts[ProductsThreeIndex].name;
   allProducts[ProductsThreeIndex].views++;
-
-  //   imageFourElement.src = allProducts[ProductsFourIndex].src;
-  //   imageFourElement.title = allProducts[ProductsFourIndex].name;
-  //   allProducts[ProductsFourIndex].views++;
-
-  //   imageFiveElement.src = allProducts[ProductsFiveIndex].src;
-  //   imageFiveElement.title = allProducts[ProductsFiveIndex].name;
-  //   allProducts[ProductsFiveIndex].views++;
-
-  //   imageSixElement.src = allProducts[ProductsSixIndex].src;
-  //   imageSixElement.title = allProducts[ProductsSixIndex].name;
-  //   allProducts[ProductsSixIndex].views++;
-
 }
 
 // function renderResults() {
@@ -149,8 +132,6 @@ function handleClick(event) {
     renderChart();
   }
 }
-
-
 
 function handleButtonClick(event) {
   if (totalClicks === clicksAllowed) {
